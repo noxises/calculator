@@ -76,7 +76,7 @@ namespace calculator
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -209,6 +209,30 @@ namespace calculator
                         textBox3.Text = Convert.ToString(resultDivision);
                         break;
                 }
+            }
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //accept to input only numbers ,  "," and Backspace
+            char number = e.KeyChar;
+          
+            if (!Char.IsDigit(number) && number != 8 && number != 44) 
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = "";
+        }
+
+        private void textBox3_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button15_Click(this, new EventArgs());
             }
         }
     }
