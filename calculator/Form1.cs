@@ -26,7 +26,7 @@ namespace calculator
         {
 
         }
-
+        // TODO: need fix problem with multi math params then number is negative
         private void button1_Click(object sender, EventArgs e)
         {
             var textBoxResult = textBox3.Text;
@@ -51,7 +51,15 @@ namespace calculator
                 }
                 else
                 {
-                    textBox3.Text += "+";
+                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                  textBoxLastChar != '-')
+                    {
+                        textBox3.Text += "+";
+                    }
+                    else
+                    {
+                        button15_Click(this, new EventArgs());
+                    }
                 }
             }
            
@@ -82,7 +90,15 @@ namespace calculator
                 }
                 else
                 {
-                    textBox3.Text += "-";
+                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    textBoxLastChar != '-')
+                    {
+                        textBox3.Text += "-";
+                    }
+                    else
+                    {
+                        button15_Click(this, new EventArgs());
+                    }
                 }
             }
          
@@ -184,7 +200,15 @@ namespace calculator
                 }
                 else
                 {
-                    textBox3.Text += "*";
+                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                   textBoxLastChar != '-')
+                    {
+                        textBox3.Text += "*";
+                    }
+                    else
+                    {
+                        button15_Click(this, new EventArgs());
+                    }
                 }
             }
           
@@ -213,7 +237,15 @@ namespace calculator
                 }
                 else
                 {
+                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+               textBoxLastChar != '-')
+                    {
                         textBox3.Text += "/";
+                    }
+                    else
+                    {
+                        button15_Click(this, new EventArgs());
+                    }
                 }
 
             }
@@ -226,51 +258,105 @@ namespace calculator
         {
             var readyToResult = textBox3.Text;
             var textBoxLength = textBox3.Text.Length;
-            for (int i = 0; i < readyToResult.Length; i++)
+            var textBoxFirstChar = readyToResult[0];
+            bool isNegativeNumber = false;
+            double result = 0;
+            int i = 0;
+            if (textBoxFirstChar == '-')
             {
-                switch (readyToResult[i]) {
+                isNegativeNumber = true;
+                readyToResult.Remove(0,1);
+            }
+            if (isNegativeNumber)
+            {
+                 i = 1;
+            }
+            
+            for (int a = i; a < readyToResult.Length; a++)
+            {
+                switch (readyToResult[a]) {
                     case  '+':
-                        double result = 0;
+                        if (isNegativeNumber)
+                        {
+                             result = (Convert.ToDouble(readyToResult.Split('+')[0]));
+                        }
+                        else {
+                             result = Convert.ToDouble(readyToResult.Split('+')[0]);
+                        }
+                       
                         foreach( var split in readyToResult.Split('+'))
                         {
-                            result += Convert.ToDouble(split);
+                            if (split != readyToResult.Split('+')[0])
+                            {
+                                result += Convert.ToDouble(split);
+                            }
                         }
              
-                        textBox3.Text = Convert.ToString(result);
+                       
                         break;
                     case '-':
-                        double resultMinus = 0;
-                        foreach (var split in readyToResult.Split('-'))
+                        var stringWithOutMinus = readyToResult;
+                        if (isNegativeNumber)
                         {
-                            resultMinus -= Convert.ToDouble(split);
+                            stringWithOutMinus = readyToResult.Remove(0, 1);
+                            result = -1 * (Convert.ToDouble(stringWithOutMinus.Split('-')[0]));
+                        }
+                        else
+                        {
+                            result = Convert.ToDouble(readyToResult.Split('-')[0]);
+                        }
+                        foreach (var split in stringWithOutMinus.Split('-'))
+                        {
+                            if (split != stringWithOutMinus.Split('-')[0])
+                            {
+                                result -= Convert.ToDouble(split);
+                            }
                         }
 
-                        textBox3.Text = Convert.ToString(resultMinus);
+                       
                         break;
                     case '*':
-                        double resultMulti = 1;
+                        if (isNegativeNumber)
+                        {
+                            result =  (Convert.ToDouble(readyToResult.Split('*')[0]));
+                        }
+                        else
+                        {
+                            result = Convert.ToDouble(readyToResult.Split('*')[0]);
+                        }
                         foreach (var split in readyToResult.Split('*'))
                         {
-                            resultMulti *= Convert.ToDouble(split);
+                            if (split != readyToResult.Split('*')[0])
+                            {
+                                result *= Convert.ToDouble(split);
+                            }
                         }
 
-                        textBox3.Text = Convert.ToString(resultMulti);
+                        
                         break;
                     case '/':
-                        double resultDivision = Convert.ToDouble(readyToResult.Split('/')[0]);
+                        if (isNegativeNumber)
+                        {
+                            result = (Convert.ToDouble(readyToResult.Split('/')[0]));
+                        }
+                        else
+                        {
+                            result = Convert.ToDouble(readyToResult.Split('/')[0]);
+                        }
                         foreach (var split in readyToResult.Split('/'))
                         {
                             if (split != readyToResult.Split('/')[0])
                             {
-                                resultDivision /= Convert.ToDouble(split);
+                                result /= Convert.ToDouble(split);
 
                             }
                             
                         }
 
-                        textBox3.Text = Convert.ToString(resultDivision);
+                       
                         break;
                 }
+                textBox3.Text = Convert.ToString(result);
             }
         }
 
