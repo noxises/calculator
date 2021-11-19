@@ -1,0 +1,215 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace calculator
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var textBoxResult = textBox3.Text;
+            if (textBoxResult != "")
+            {
+                var textBoxLastChar = textBoxResult[textBoxResult.Length - 1];
+                if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    textBoxLastChar != '-')
+                {
+                    textBox3.Text += "+";
+                }
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var textBoxResult = textBox3.Text;
+            if (textBoxResult != "")
+            {
+                var textBoxLastChar = textBoxResult[textBoxResult.Length - 1];
+                if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    textBoxLastChar != '-')
+                {
+                    textBox3.Text += "-";
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string a = "1";
+            textBox3.Text += a;
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            string a = "7";
+            textBox3.Text += a;
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            string a = "9";
+            textBox3.Text += a;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string a = "2";
+            textBox3.Text += a;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string a = "3";
+            textBox3.Text += a;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string a = "4";
+            textBox3.Text += a;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string a = "5";
+            textBox3.Text += a;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string a = "6";
+            textBox3.Text += a;
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string a = "8";
+            textBox3.Text += a;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            string a = "0";
+            textBox3.Text += a;
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            var textBoxResult = textBox3.Text;
+           
+            if (textBoxResult != "")
+            {
+                var textBoxLastChar = textBoxResult[textBoxResult.Length - 1];
+                if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    textBoxLastChar != '-')
+                {
+                    textBox3.Text += "*";
+                }
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            var textBoxResult = textBox3.Text;
+           
+            if (textBoxResult != "")
+            {
+                var textBoxLastChar = textBoxResult[textBoxResult.Length - 1];
+                if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    textBoxLastChar != '-')
+                {
+                    textBox3.Text += "/";
+                }
+            }
+           
+
+            
+          
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            var readyToResult = textBox3.Text;
+            var textBoxLength = textBox3.Text.Length;
+            for (int i = 0; i < readyToResult.Length; i++)
+            {
+                switch (readyToResult[i]) {
+                    case  '+':
+                        double result = 0;
+                        foreach( var split in readyToResult.Split('+'))
+                        {
+                            result += Convert.ToDouble(split);
+                        }
+             
+                        textBox3.Text = Convert.ToString(result);
+                        break;
+                    case '-':
+                        double resultMinus = 0;
+                        foreach (var split in readyToResult.Split('-'))
+                        {
+                            resultMinus -= Convert.ToDouble(split);
+                        }
+
+                        textBox3.Text = Convert.ToString(resultMinus);
+                        break;
+                    case '*':
+                        double resultMulti = 1;
+                        foreach (var split in readyToResult.Split('*'))
+                        {
+                            resultMulti *= Convert.ToDouble(split);
+                        }
+
+                        textBox3.Text = Convert.ToString(resultMulti);
+                        break;
+                    case '/':
+                        double resultDivision = Convert.ToDouble(readyToResult.Split('/')[0]);
+                        foreach (var split in readyToResult.Split('/'))
+                        {
+                            if (split != readyToResult.Split('/')[0])
+                            {
+                                resultDivision /= Convert.ToDouble(split);
+
+                            }
+                            
+                        }
+
+                        textBox3.Text = Convert.ToString(resultDivision);
+                        break;
+                }
+            }
+        }
+    }
+}
