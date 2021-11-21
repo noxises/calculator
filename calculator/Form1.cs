@@ -26,7 +26,7 @@ namespace calculator
         {
 
         }
-        // TODO: need fix problem with multi math params then number is negative
+       
         private void button1_Click(object sender, EventArgs e)
         {
             var textBoxResult = textBox3.Text;
@@ -51,14 +51,28 @@ namespace calculator
                 }
                 else
                 {
-                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
-                  textBoxLastChar != '-')
-                    {
-                        textBox3.Text += "+";
+                    var textBoxWithOutMinus = textBox3.Text.Remove(0,1);
+                    if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
+                    { 
+                        button15_Click(this, new EventArgs());
+                    
                     }
                     else
                     {
-                        button15_Click(this, new EventArgs());
+
+
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                  textBoxLastChar != '-')
+                        {
+                            textBox3.Text += "+";
+                        }
+                        else if (textBoxLastChar == '/' || textBoxLastChar == '*' || textBoxLastChar == '+' ||
+                      textBoxLastChar == '-')
+                        {
+                            textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                            textBox3.Text += "+";
+                        }
+                       
                     }
                 }
             }
@@ -90,14 +104,26 @@ namespace calculator
                 }
                 else
                 {
-                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    var textBoxWithOutMinus = textBox3.Text.Remove(0, 1);
+                    if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
+                    {
+                        button15_Click(this, new EventArgs());
+
+                    }
+                    else
+                    {
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
                     textBoxLastChar != '-')
                     {
                         textBox3.Text += "-";
                     }
-                    else
+                    else if (textBoxLastChar == '/' || textBoxLastChar == '*' || textBoxLastChar == '+' ||
+                   textBoxLastChar == '-')
                     {
-                        button15_Click(this, new EventArgs());
+                        textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                        textBox3.Text += "-";
+                    }
+                   
                     }
                 }
             }
@@ -176,7 +202,7 @@ namespace calculator
 
         private void button13_Click(object sender, EventArgs e)
         {
-            // TODO: fix errors with negative numbers
+           
              
             var textBoxResult = textBox3.Text;
            
@@ -200,14 +226,26 @@ namespace calculator
                 }
                 else
                 {
-                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    var textBoxWithOutMinus = textBox3.Text.Remove(0, 1);
+                    if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
+                    {
+                        button15_Click(this, new EventArgs());
+
+                    }
+                    else
+                    {
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
                    textBoxLastChar != '-')
                     {
                         textBox3.Text += "*";
                     }
-                    else
+                    else if (textBoxLastChar == '/' || textBoxLastChar == '*' || textBoxLastChar == '+' ||
+                   textBoxLastChar == '-')
                     {
-                        button15_Click(this, new EventArgs());
+                        textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                        textBox3.Text += "*";
+                    }
+                   
                     }
                 }
             }
@@ -237,14 +275,26 @@ namespace calculator
                 }
                 else
                 {
-                    if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                    var textBoxWithOutMinus = textBox3.Text.Remove(0, 1);
+                    if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
+                    {
+                        button15_Click(this, new EventArgs());
+
+                    }
+                    else
+                    {
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
                textBoxLastChar != '-')
                     {
                         textBox3.Text += "/";
                     }
-                    else
+                    else if (textBoxLastChar == '/' || textBoxLastChar == '*' || textBoxLastChar == '+' ||
+                  textBoxLastChar == '-')
                     {
-                        button15_Click(this, new EventArgs());
+                        textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                        textBox3.Text += "/";
+                    }
+                   
                     }
                 }
 
