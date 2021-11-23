@@ -17,15 +17,6 @@ namespace calculator
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
        
         private void button1_Click(object sender, EventArgs e)
         {
@@ -46,6 +37,7 @@ namespace calculator
                     else
                     {
                         button15_Click(this, new EventArgs());
+                        textBox3.Text += "+";
                     }
 
                 }
@@ -53,9 +45,17 @@ namespace calculator
                 {
                     var textBoxWithOutMinus = textBox3.Text.Remove(0,1);
                     if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
-                    { 
-                        button15_Click(this, new EventArgs());
-                    
+                    {
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                 textBoxLastChar != '-') { 
+                            button15_Click(this, new EventArgs());
+                        textBox3.Text += "+";
+                        }
+                        else
+                        {
+                            textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                            textBox3.Text += "+";
+                        }
                     }
                     else
                     {
@@ -99,6 +99,7 @@ namespace calculator
                     else
                     {
                         button15_Click(this, new EventArgs());
+                        textBox3.Text += "-";
                     }
 
                 }
@@ -107,8 +108,17 @@ namespace calculator
                     var textBoxWithOutMinus = textBox3.Text.Remove(0, 1);
                     if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
                     {
-                        button15_Click(this, new EventArgs());
-
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                  textBoxLastChar != '-')
+                        {
+                            button15_Click(this, new EventArgs());
+                            textBox3.Text += "-";
+                        }
+                        else
+                        {
+                            textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                            textBox3.Text += "-";
+                        }
                     }
                     else
                     {
@@ -221,6 +231,7 @@ namespace calculator
                     else
                     {
                         button15_Click(this, new EventArgs());
+                        textBox3.Text += "*";
                     }
 
                 }
@@ -229,8 +240,17 @@ namespace calculator
                     var textBoxWithOutMinus = textBox3.Text.Remove(0, 1);
                     if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
                     {
-                        button15_Click(this, new EventArgs());
-
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                  textBoxLastChar != '-')
+                        {
+                            button15_Click(this, new EventArgs());
+                            textBox3.Text += "*";
+                        }
+                        else
+                        {
+                            textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                            textBox3.Text += "*";
+                        }
                     }
                     else
                     {
@@ -270,6 +290,7 @@ namespace calculator
                     }
                     else{
                         button15_Click(this, new EventArgs());
+                        textBox3.Text += "/";
                     }
 
                 }
@@ -278,7 +299,17 @@ namespace calculator
                     var textBoxWithOutMinus = textBox3.Text.Remove(0, 1);
                     if (textBoxWithOutMinus.Contains("+") || textBoxWithOutMinus.Contains("*") || textBoxWithOutMinus.Contains("/") || textBoxWithOutMinus.Contains("-"))
                     {
-                        button15_Click(this, new EventArgs());
+                        if (textBoxLastChar != '/' && textBoxLastChar != '*' && textBoxLastChar != '+' &&
+                  textBoxLastChar != '-')
+                        {
+                            button15_Click(this, new EventArgs());
+                            textBox3.Text += "/";
+                        }
+                        else
+                        {
+                            textBox3.Text = textBox3.Text.Remove(textBox3.Text.Length - 1);
+                            textBox3.Text += "/";
+                        }
 
                     }
                     else
@@ -326,22 +357,19 @@ namespace calculator
             {
                 switch (readyToResult[a]) {
                     case  '+':
-                        if (isNegativeNumber)
-                        {
-                             result = (Convert.ToDouble(readyToResult.Split('+')[0]));
-                        }
-                        else {
-                             result = Convert.ToDouble(readyToResult.Split('+')[0]);
-                        }
-                       
+                        
+                        result = Convert.ToDouble(readyToResult.Split('+')[0]);
+                       int  c = 0;
+                     
                         foreach( var split in readyToResult.Split('+'))
                         {
-                            if (split != readyToResult.Split('+')[0])
+                            if (c != 0 )
                             {
                                 result += Convert.ToDouble(split);
                             }
+                            c++;
                         }
-             
+                       
                        
                         break;
                     case '-':
@@ -355,51 +383,56 @@ namespace calculator
                         {
                             result = Convert.ToDouble(readyToResult.Split('-')[0]);
                         }
+                        c = 0;
                         foreach (var split in stringWithOutMinus.Split('-'))
                         {
-                            if (split != stringWithOutMinus.Split('-')[0])
+                            if (c != 0)
                             {
                                 result -= Convert.ToDouble(split);
                             }
+                            c++;
                         }
 
                        
                         break;
                     case '*':
-                        if (isNegativeNumber)
-                        {
-                            result =  (Convert.ToDouble(readyToResult.Split('*')[0]));
-                        }
-                        else
-                        {
+                       
                             result = Convert.ToDouble(readyToResult.Split('*')[0]);
-                        }
+                        c = 0;
                         foreach (var split in readyToResult.Split('*'))
                         {
-                            if (split != readyToResult.Split('*')[0])
+                            if (c != 0)
                             {
                                 result *= Convert.ToDouble(split);
                             }
+                            c++;
                         }
 
                         
                         break;
                     case '/':
-                        if (isNegativeNumber)
-                        {
-                            result = (Convert.ToDouble(readyToResult.Split('/')[0]));
-                        }
-                        else
-                        {
+                       
                             result = Convert.ToDouble(readyToResult.Split('/')[0]);
-                        }
+                        c = 0;
                         foreach (var split in readyToResult.Split('/'))
                         {
-                            if (split != readyToResult.Split('/')[0])
+                            if (c != 0)
                             {
-                                result /= Convert.ToDouble(split);
+                                if(Convert.ToDouble(split) == 0)
+                                {
+                                    MessageBox.Show("Please do not divide by zero!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+
+                                }
+                                else
+                                {
+                                    result /= Convert.ToDouble(split);
+                                }
+                               
 
                             }
+                            c++;
                             
                         }
 
@@ -443,6 +476,12 @@ namespace calculator
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            
+            textBox3.Text += "ng(";
         }
     }
 }
